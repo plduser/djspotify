@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎧 DJ Set Planner - Sylwester 2024/2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00fff5;
+            --neon-pink: #ff00ff;
+            --neon-purple: #b537f2;
+            --dark-bg: #0a0a0f;
+            --card-bg: #1a1a2e;
+            --accent: #ff6b35;
+            --success: #00ff88;
+            --grid-color: rgba(0, 255, 245, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(0deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 245, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.08) 0%, transparent 50%);
+            animation: bgPulse 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 2px solid var(--neon-cyan);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 0.5rem;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(0, 255, 245, 0.5);
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px var(--neon-cyan)); }
+            to { filter: drop-shadow(0 0 25px var(--neon-pink)); }
+        }
+
+        .subtitle {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        /* Login Section */
+        .login-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 245, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 255, 245, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+            color: var(--dark-bg);
+            border: none;
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 255, 245, 0.4);
+            text-transform: uppercase;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 255, 245, 0.6);
+        }
+
+        /* Setup Section */
+        .setup-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--neon-cyan);
+            margin-bottom: 3rem;
+            box-shadow: 0 0 20px rgba(0, 255, 245, 0.1);
+        }
+
+        .setup-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .setup-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .setup-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        select, input[type="time"], input[type="text"] {
+            background: rgba(0, 255, 245, 0.05);
+            border: 1px solid var(--neon-cyan);
+            color: #fff;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-family: 'Rajdhani', sans-serif;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(0, 255, 245, 0.3);
+        }
+
+        select option {
+            background: var(--card-bg);
+            color: #fff;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, var(--neon-pink) 0%, var(--accent) 100%);
+            color: #fff;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin-top: 3rem;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        .timeline-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            background: rgba(0, 255, 245, 0.1);
+            border: 1px solid var(--neon-cyan);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+        }
+
+        .stat-pill span {
+            color: var(--neon-cyan);
+            font-weight: 700;
+        }
+
+        /* DJ Set Cards */
+        .sets-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .dj-set {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--neon-cyan);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(0, 255, 245, 0.1);
+        }
+
+        .dj-set:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 245, 0.3);
+            border-color: var(--neon-pink);
+        }
+
+        .set-header {
+            background: linear-gradient(135deg, rgba(0, 255, 245, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--neon-cyan);
+        }
+
+        .set-time {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .set-dj {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .set-dj input {
+            flex: 1;
+            background: rgba(0, 255, 245, 0.1);
+            border: 1px solid var(--neon-pink);
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 8px;
+        }
+
+        .set-info {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .set-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .set-body {
+            padding: 0;
+        }
+
+        .tracks-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .tracks-list.expanded {
+            max-height: 2000px;
+        }
+
+        .track-item {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 255, 245, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .track-item:hover {
+            background: rgba(0, 255, 245, 0.05);
+        }
+
+        .track-number {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            min-width: 30px;
+        }
+
+        .track-details {
+            flex: 1;
+        }
+
+        .track-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .track-artist {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .track-duration {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-pink);
+        }
+
+        .toggle-tracks {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.8rem 2rem;
+            margin: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: calc(100% - 4rem);
+        }
+
+        .toggle-tracks:hover {
+            background: rgba(0, 255, 245, 0.1);
+            border-color: var(--neon-pink);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 255, 245, 0.1);
+            border-top: 3px solid var(--neon-cyan);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Export Button */
+        .export-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, var(--success) 0%, var(--neon-cyan) 100%);
+            color: var(--dark-bg);
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .setup-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Midnight highlight */
+        .dj-set.midnight {
+            border-color: var(--accent);
+            box-shadow: 0 10px 50px rgba(255, 107, 53, 0.3);
+        }
+
+        .dj-set.midnight .set-header {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(255, 0, 255, 0.3) 100%);
+        }
+
+        .countdown-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎧 DJ SET PLANNER</h1>
+            <p class="subtitle">Sylwester 2024/2025 Timeline</p>
+        </header>
+
+        <!-- Login Section -->
+        <div id="loginSection" class="login-section">
+            <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: var(--neon-cyan);">
+                POŁĄCZ Z SPOTIFY
+            </h2>
+            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem; font-size: 1.1rem;">
+                Zaloguj się, aby zaplanować sety DJ-skie z Twojej playlisty
+            </p>
+            <button class="login-btn" onclick="loginSpotify()">
+                🎵 CONNECT TO SPOTIFY
+            </button>
+        </div>
+
+        <!-- Main App Section -->
+        <div id="appSection" class="hidden">
+            <!-- Setup Section -->
+            <div class="setup-section">
+                <h2 class="setup-title">⚙️ Konfiguracja</h2>
+                <div class="setup-grid">
+                    <div class="setup-item">
+                        <label class="setup-label">Wybierz playlistę</label>
+                        <select id="playlistSelect" onchange="loadPlaylistTracks()">
+                            <option value="">-- Wybierz playlistę --</option>
+                        </select>
+                    </div>
+                    <div class="setup-item">
+                        <label class="setup-label">Godzina startu</label>
+                        <input type="time" id="startTime" value="19:30">
+                    </div>
+                    <div class="setup-item">
+                        <label class="setup-label">Długość setu (minuty)</label>
+                        <input type="number" id="setDuration" value="45" min="15" max="120" step="5">
+                    </div>
+                </div>
+                <button class="generate-btn" onclick="generateSets()">
+                    ⚡ GENERUJ HARMONOGRAM
+                </button>
+            </div>
+
+            <!-- Loading -->
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Ładowanie playlisty...</p>
+            </div>
+
+            <!-- Timeline Section -->
+            <div id="timelineSection" class="timeline-section hidden">
+                <div class="timeline-header">
+                    <h2 class="timeline-title">📅 Harmonogram</h2>
+                    <div class="timeline-stats">
+                        <div class="stat-pill">
+                            <span id="totalSets">0</span> setów
+                        </div>
+                        <div class="stat-pill">
+                            <span id="totalTracks">0</span> utworów
+                        </div>
+                        <div class="stat-pill">
+                            <span id="totalDuration">0:00</span> całkowity czas
+                        </div>
+                    </div>
+                </div>
+
+                <div id="setsGrid" class="sets-grid"></div>
+
+                <div class="export-section">
+                    <button class="export-btn" onclick="exportTimeline()">
+                        📄 EKSPORTUJ HARMONOGRAM
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Spotify API Configuration
+        const CLIENT_ID = 'TWOJE_SPOTIFY_CLIENT_ID'; // Uzupełnij swoje Client ID
+        const REDIRECT_URI = window.location.origin + window.location.pathname;
+        const SCOPES = 'playlist-read-private playlist-read-collaborative';
+
+        let accessToken = null;
+        let playlists = [];
+        let playlistTracks = [];
+        let djSets = [];
+
+        // DJ Names Generator
+        const DJ_NAMES = [
+            'DJ Thunder', 'MC Electro', 'DJ Phoenix', 'Vibe Master', 
+            'DJ Neon', 'Bass King', 'DJ Pulse', 'Rhythm Rider',
+            'DJ Nova', 'Sound Wizard', 'DJ Cosmos', 'Beat Architect',
+            'DJ Voltage', 'Frequency Fox', 'DJ Midnight', 'Groove Machine'
+        ];
+
+        // Initialize
+        window.onload = function() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            accessToken = params.get('access_token');
+
+            if (accessToken) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+                showApp();
+                loadPlaylists();
+            }
+        };
+
+        function loginSpotify() {
+            if (CLIENT_ID === 'TWOJE_SPOTIFY_CLIENT_ID') {
+                alert('⚠️ Musisz najpierw skonfigurować CLIENT_ID!\n\n1. Przejdź na https://developer.spotify.com/dashboard\n2. Stwórz nową aplikację\n3. Dodaj Redirect URI (z HTTPS)\n4. Skopiuj Client ID i wklej do kodu');
+                return;
+            }
+
+            const authUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES)}`;
+            window.location.href = authUrl;
+        }
+
+        function showApp() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('appSection').classList.remove('hidden');
+        }
+
+        async function loadPlaylists() {
+            try {
+                const response = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch playlists');
+
+                const data = await response.json();
+                playlists = data.items;
+
+                const select = document.getElementById('playlistSelect');
+                playlists.forEach(playlist => {
+                    const option = document.createElement('option');
+                    option.value = playlist.id;
+                    option.textContent = `${playlist.name} (${playlist.tracks.total} utworów)`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading playlists:', error);
+                alert('Błąd podczas ładowania playlist. Spróbuj zalogować się ponownie.');
+            }
+        }
+
+        async function loadPlaylistTracks() {
+            const playlistId = document.getElementById('playlistSelect').value;
+            if (!playlistId) return;
+
+            document.getElementById('loading').classList.remove('hidden');
+            playlistTracks = [];
+
+            try {
+                let url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+                
+                while (url) {
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    });
+
+                    if (!response.ok) throw new Error('Failed to fetch tracks');
+
+                    const data = await response.json();
+                    playlistTracks.push(...data.items.filter(item => item.track).map(item => item.track));
+                    url = data.next;
+                }
+
+                document.getElementById('loading').classList.add('hidden');
+                alert(`✅ Załadowano ${playlistTracks.length} utworów!`);
+            } catch (error) {
+                console.error('Error loading tracks:', error);
+                document.getElementById('loading').classList.add('hidden');
+                alert('Błąd podczas ładowania utworów z playlisty.');
+            }
+        }
+
+        function generateSets() {
+            if (playlistTracks.length === 0) {
+                alert('⚠️ Najpierw wybierz i załaduj playlistę!');
+                return;
+            }
+
+            const startTime = document.getElementById('startTime').value;
+            const setDurationMinutes = parseInt(document.getElementById('setDuration').value);
+
+            if (!startTime) {
+                alert('⚠️ Ustaw godzinę startu!');
+                return;
+            }
+
+            djSets = [];
+            let currentTracks = [];
+            let currentDuration = 0;
+            const setDurationMs = setDurationMinutes * 60 * 1000;
+
+            // Parse start time
+            const [hours, minutes] = startTime.split(':').map(Number);
+            let currentTime = new Date();
+            currentTime.setHours(hours, minutes, 0, 0);
+
+            // If start time is before midnight on Dec 31, set to Dec 31
+            if (currentTime.getHours() < 12) {
+                currentTime.setDate(31);
+                currentTime.setMonth(11); // December
+                currentTime.setFullYear(2024);
+            }
+
+            let setNumber = 1;
+
+            playlistTracks.forEach((track, index) => {
+                currentTracks.push(track);
+                currentDuration += track.duration_ms;
+
+                // Check if we've reached the set duration or it's the last track
+                if (currentDuration >= setDurationMs || index === playlistTracks.length - 1) {
+                    const endTime = new Date(currentTime.getTime() + currentDuration);
+                    
+                    // Check if this set crosses midnight
+                    const isMidnight = currentTime.getDate() !== endTime.getDate() || 
+                                      (currentTime.getHours() === 23 && endTime.getHours() === 0);
+
+                    djSets.push({
+                        number: setNumber,
+                        djName: DJ_NAMES[(setNumber - 1) % DJ_NAMES.length],
+                        startTime: new Date(currentTime),
+                        endTime: endTime,
+                        tracks: [...currentTracks],
+                        duration: currentDuration,
+                        isMidnight: isMidnight
+                    });
+
+                    // Update for next set
+                    currentTime = new Date(endTime);
+                    currentTracks = [];
+                    currentDuration = 0;
+                    setNumber++;
+                }
+            });
+
+            displaySets();
+        }
+
+        function displaySets() {
+            const grid = document.getElementById('setsGrid');
+            grid.innerHTML = '';
+
+            djSets.forEach((set, index) => {
+                const setCard = document.createElement('div');
+                setCard.className = 'dj-set';
+                if (set.isMidnight) {
+                    setCard.classList.add('midnight');
+                }
+
+                const startTimeStr = formatTime(set.startTime);
+                const endTimeStr = formatTime(set.endTime);
+                const durationStr = formatDuration(set.duration);
+
+                let tracksHTML = set.tracks.map((track, i) => `
+                    <div class="track-item">
+                        <div class="track-number">${i + 1}</div>
+                        <div class="track-details">
+                            <div class="track-name">${track.name}</div>
+                            <div class="track-artist">${track.artists.map(a => a.name).join(', ')}</div>
+                        </div>
+                        <div class="track-duration">${formatMs(track.duration_ms)}</div>
+                    </div>
+                `).join('');
+
+                setCard.innerHTML = `
+                    <div class="set-header">
+                        <div class="set-time">
+                            ⏰ ${startTimeStr} - ${endTimeStr}
+                            ${set.isMidnight ? '<span class="countdown-badge">🎊 MIDNIGHT!</span>' : ''}
+                        </div>
+                        <div class="set-dj">
+                            <span style="color: var(--neon-pink); font-weight: 700;">SET ${set.number}:</span>
+                            <input type="text" value="${set.djName}" 
+                                   onchange="updateDJName(${index}, this.value)"
+                                   placeholder="Nazwa DJ-a">
+                        </div>
+                        <div class="set-info">
+                            <div class="set-info-item">
+                                <span>🎵</span> ${set.tracks.length} utworów
+                            </div>
+                            <div class="set-info-item">
+                                <span>⏱️</span> ${durationStr}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-body">
+                        <button class="toggle-tracks" onclick="toggleTracks(${index})">
+                            ▼ Pokaż utwory
+                        </button>
+                        <div id="tracksList${index}" class="tracks-list">
+                            ${tracksHTML}
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(setCard);
+            });
+
+            // Update stats
+            document.getElementById('totalSets').textContent = djSets.length;
+            document.getElementById('totalTracks').textContent = playlistTracks.length;
+            const totalMs = playlistTracks.reduce((sum, track) => sum + track.duration_ms, 0);
+            document.getElementById('totalDuration').textContent = formatDuration(totalMs);
+
+            document.getElementById('timelineSection').classList.remove('hidden');
+        }
+
+        function toggleTracks(setIndex) {
+            const tracksList = document.getElementById(`tracksList${setIndex}`);
+            const button = event.target;
+            
+            if (tracksList.classList.contains('expanded')) {
+                tracksList.classList.remove('expanded');
+                button.textContent = '▼ Pokaż utwory';
+            } else {
+                tracksList.classList.add('expanded');
+                button.textContent = '▲ Ukryj utwory';
+            }
+        }
+
+        function updateDJName(setIndex, newName) {
+            djSets[setIndex].djName = newName;
+        }
+
+        function formatTime(date) {
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function formatDuration(ms) {
+            const hours = Math.floor(ms / 3600000);
+            const minutes = Math.floor((ms % 3600000) / 60000);
+            return hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
+        }
+
+        function formatMs(ms) {
+            const minutes = Math.floor(ms / 60000);
+            const seconds = Math.floor((ms % 60000) / 1000);
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function exportTimeline() {
+            let text = '🎧 DJ SET PLANNER - SYLWESTER 2024/2025\n';
+            text += '='.repeat(60) + '\n\n';
+
+            djSets.forEach(set => {
+                text += `SET ${set.number}: ${set.djName}\n`;
+                text += `⏰ ${formatTime(set.startTime)} - ${formatTime(set.endTime)}\n`;
+                text += `⏱️ Długość: ${formatDuration(set.duration)}\n`;
+                if (set.isMidnight) {
+                    text += `🎊 **MIDNIGHT SET!**\n`;
+                }
+                text += `\nTRAKLISTA (${set.tracks.length} utworów):\n`;
+                text += '-'.repeat(60) + '\n';
+
+                set.tracks.forEach((track, i) => {
+                    text += `${i + 1}. ${track.name} - ${track.artists.map(a => a.name).join(', ')} [${formatMs(track.duration_ms)}]\n`;
+                });
+
+                text += '\n' + '='.repeat(60) + '\n\n';
+            });
+
+            // Download as text file
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sylwester-2024-dj-sets.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+
+            alert('✅ Harmonogram został wyeksportowany!');
+        }
+    </script>
+</body>
+</html>
